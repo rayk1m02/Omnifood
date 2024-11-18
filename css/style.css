@@ -229,6 +229,7 @@
   background-color: #fdf2e9;
   z-index: -2;
 }
+
 .step-img-box::after {
   width: 45%;
   padding-bottom: 45%;

@@ -12,14 +12,12 @@
 //   h1.style.padding = "5rem";
 // });
 
-///////////////////////////////////////////////////////////
-// Set current year
+/////////////////// Set current year/////////////////////////
 const yearEl = document.querySelector(".year");
 const currentYear = new Date().getFullYear();
 yearEl.textContent = currentYear;
 
-///////////////////////////////////////////////////////////
-// Make mobile navigation work
+////////////////// Make mobile navigation work///////////////
 const btnNavEl = document.querySelector(".btn-mobile-nav");
 const headerEl = document.querySelector(".header");
 btnNavEl.addEventListener("click", function () {
@@ -27,8 +25,7 @@ btnNavEl.addEventListener("click", function () {
   headerEl.classList.toggle("nav-open");
 });
 
-///////////////////////////////////////////////////////////
-// Smooth scrolling animation
+/////////////// Smooth scrolling animation//////////////////
 const allLinks = document.querySelectorAll("a:link");
 allLinks.forEach(function (link) {
   link.addEventListener("click", function (e) {
@@ -40,45 +37,40 @@ allLinks.forEach(function (link) {
         top: 0,
         behavior: "smooth",
       });
-
     // Scroll to other sections
     if (href !== "#" && href.startsWith("#")) {
       const sectionEl = document.querySelector(href);
       sectionEl.scrollIntoView({ behavior: "smooth" });
     }
-
     // Close mobile navigation once link is pressed
     if (link.classList.contains("main-nav-link"))
       headerEl.classList.toggle("nav-open");
   });
 });
 
-///////////////////////////////////////////////////////////
-// Sticky navigation
+/////////////////// Sticky navigation//////////////////////
 const sectionHeroEl = document.querySelector(".section-hero");
 const obs = new IntersectionObserver(
   function (entries) {
     const ent = entries[0];
     console.log(ent);
-    if (!ent.isIntersecting) {
-      document.body.classList.add("sticky");
-    }
-    if (ent.isIntersecting) {
-      document.body.classList.remove("sticky");
-    }
+    // Hero section is not in viewport
+    if (!ent.isIntersecting) { document.body.classList.add("sticky"); }
+    // Hero section is out of viewport, add sticky navigation
+    if (ent.isIntersecting) { document.body.classList.remove("sticky");}
   },
   {
-    // In the viewport
+    // Viewport is browser window
     root: null,
-    // Get the event as soon as hero section is completely out of the viewport
+    // Get the event as soon as hero section is out of view at a margin of 80px
     threshold: 0,
     rootMargin: "-80px",
   }
 );
 obs.observe(sectionHeroEl);
 
-///////////////////////////////////////////////////////////
-// Fixing flexbox gap property missing in some Safari versions
+////////////////////////////////////////////////////////////////////
+// Check flex gap property as some Safari versions do not support it
 function checkFlexGap() {
   var flex = document.createElement("div");
   flex.style.display = "flex";
